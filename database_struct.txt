@@ -1,0 +1,59 @@
+-- ============================================
+-- STARTUP CONNECT DATABASE SCHEMA
+-- ============================================
+
+-- Table 1: USERS (Common information for all user types)
+CREATE TABLE IF NOT EXISTS users (
+    user_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT UNIQUE NOT NULL,
+    password TEXT NOT NULL,
+    name TEXT NOT NULL,
+    role TEXT NOT NULL CHECK(role IN ('Founder', 'Mentor', 'Investor')),
+    industry TEXT NOT NULL,
+    bio TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Table 2: FOUNDERS (Startup founder specific details)
+CREATE TABLE IF NOT EXISTS founders (
+    founder_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER UNIQUE NOT NULL,
+    startup_name TEXT NOT NULL,
+    startup_description TEXT,
+    years_of_operation TEXT CHECK(years_of_operation IN ('Less than 1 year', '1-2 years', '3-5 years', '5+ years')),
+    stage TEXT CHECK(stage IN ('Idea', 'Early', 'Growth', 'Established')),
+    
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+);
+
+-- Table 3: MENTORS (Mentor specific details)
+CREATE TABLE IF NOT EXISTS mentors (
+    mentor_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER UNIQUE NOT NULL,
+    expertise TEXT NOT NULL,
+    years_of_experience TEXT CHECK(years_of_experience IN ('0-5 years', '5-10 years', '10-20 years', '20+ years')),
+    availability TEXT CHECK(availability IN ('5-10 hours/week', '10-20 hours/week', '20+ hours/week')),
+    previous_mentorships TEXT CHECK(previous_mentorships IN ('0-5', '5-10', '10-20', '20+')),
+    
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+);
+
+-- Table 4: INVESTORS (Investor specific details)
+CREATE TABLE IF NOT EXISTS investors (
+    investor_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER UNIQUE NOT NULL,
+    investment_stage TEXT CHECK(investment_stage IN ('Idea', 'Early', 'Growth', 'Established')),
+    investment_range TEXT CHECK(investment_range IN ('1k-5k', '5k-10k', '10k+')),
+    previous_investments TEXT CHECK(previous_investments IN ('0-5', '5-10', '10-20', '20+')),
+    
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+);
+
+-- ============================================
+-- NOTES:
+-- ============================================
+-- 1. All text ranges are predefined categories for consistency
+-- 2. user_id is UNIQUE in role-specific tables (one-to-one relationship)
+-- 3. ON DELETE CASCADE ensures when a user is deleted, their details are also deleted
+-- 4. CHECK constraints ensure only valid values are entered
+-- ============================================
