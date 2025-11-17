@@ -1,0 +1,11 @@
+User A wants to connect with User B
+    ↓
+Check: Are they already connected? (status='accepted')
+    ├─ YES → "Already connected" ❌ STOP
+    └─ NO → Continue
+         ↓
+Check: Does B have pending request to A?
+    ├─ YES → "B already sent you a request. Accept?"
+    │         ├─ Accept → Update to 'accepted' ✅
+    │         └─ Decline → Update to 'declined' ❌
+    └─ NO → Send new request from A to B ✅
