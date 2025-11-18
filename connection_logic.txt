@@ -1,11 +1,23 @@
-User A wants to connect with User B
-    ↓
-Check: Are they already connected? (status='accepted')
-    ├─ YES → "Already connected" ❌ STOP
-    └─ NO → Continue
-         ↓
-Check: Does B have pending request to A?
-    ├─ YES → "B already sent you a request. Accept?"
-    │         ├─ Accept → Update to 'accepted' ✅
-    │         └─ Decline → Update to 'declined' ❌
-    └─ NO → Send new request from A to B ✅
+Step 1: Check if already connected (status = 'accepted')
+├─ YES → Display: "You are already connected with this user" ❌ STOP
+└─ NO → Continue to Step 2
+
+Step 2: Check if B has PENDING request to A
+├─ YES → Display: "User B already sent you a request. Do you want to accept it? (Y/N)"
+│         ├─ Y → UPDATE status to 'accepted' ✅ 
+│         │      Display: "Connection accepted!"
+│         └─ N → Return to main menu
+└─ NO → Continue to Step 3
+
+Step 3: Check if A has PENDING request to B
+├─ YES → Display: "You already sent a connection request to this user" ❌ STOP
+└─ NO → Continue to Step 4
+
+Step 4: Check if there's a DECLINED request from A to B (status = 'declined')
+├─ YES → UPDATE status from 'declined' to 'pending', reset timestamp ✅
+│         Display: "Connection request sent successfully!"
+└─ NO → Continue to Step 5
+
+Step 5: No existing connection found
+→ INSERT new request (sender_id=A, receiver_id=B, status='pending') ✅
+  Display: "Connection request sent successfully!"
