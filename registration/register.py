@@ -100,3 +100,62 @@ def register_user():
     
     display_details(username, name, role, industry, bio)
     decision = input("Do you want to confirm this data [y/n]: ").strip().lower()
+    
+    
+    if decision == 'y' and role == 1: #The User is a Founder
+        print("Founder Registration Progress: 50%!")
+        print(f"WARNING!: User {username}, hasn't been INSERTED into the DATABASE. ")
+        print(f"In order to complete the process, please fill the information below! ")
+
+        venture_name = input("Enter your Startup: >>>>>>> ").strip()
+        description = input("Enter the Description: >>>>>> ").strip()
+
+
+        if not venture_name or not description:
+            print("ERROR: Both Startup Name and Description are REQUIRED!!")
+            return None
+
+        if not any(c.isalpha() for c in venture_name) or len(venture_name) < 2:
+            print("ERROR: Startup Name must be at least 2 characters and contain letters!")
+            return None
+
+        if not any(c.isalpha() for c in description) or len(description) < 10:
+            print("ERROR: Description must be at least 10 characters and contain letters!")
+            return None
+
+        while True:
+            try:
+                stage = int(input(
+                    "Select your startup stage:\n"
+                    "1: Idea\n"
+                    "2: Early\n"
+                    "3: Growth\n"
+                    "4: Established\n"
+                    "Enter option (1 - 4): "
+                ))
+                yr_operation = int(input(
+                    "Select the years of operation:\n"
+                    "1: Less than 1 year\n"
+                    "2: 1 - 2 years\n"
+                    "3: 3 - 5 years\n"
+                    "4: 5 years+\n"
+                    "Enter option (1 - 4): "
+                ))
+                if yr_operation not in [1, 2, 3, 4] or stage not in [1, 2, 3, 4]:
+                    print("Error: Both Options must be between 1 - 4")
+                    continue
+                break
+            except ValueError:
+                print("Please Enter a Valid Number ! ")
+
+        #creating the founder class
+        STAGES = {1: "Idea", 2: "Early", 3: "Growth", 4: "Established"}
+        YEARS = {1: "Less than 1 year", 2: "1-2 years", 3: "3-5 years", 4: "5+ years"}
+        
+        # Create the Founder object
+        founder = Founder(username, hashlib.sha256(password.encode()).hexdigest(), name, 1, industry, bio, venture_name, description,
+            YEARS[yr_operation],
+            STAGES[stage]
+        )
+
+        founder.display_founder_info()
