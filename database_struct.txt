@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS connections (
     connection_id INT AUTO_INCREMENT PRIMARY KEY,
     sender_id INT NOT NULL,
     receiver_id INT NOT NULL,
-    status ENUM('pending', 'accepted', 'declined') NOT NULL,
+    status VARCHAR(20) CHECK(status IN ('Pending', 'Accepted', 'Declined')),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     
     FOREIGN KEY (sender_id) REFERENCES users(user_id) ON DELETE CASCADE,
