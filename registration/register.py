@@ -159,3 +159,11 @@ def register_user():
         )
 
         founder.display_founder_info()
+    elif decision == 'y' and role == 2: #Mentor
+        pass
+    elif decision == 'y' and role == 3: #Investor
+        pass
+    
+    else:
+        print("Registration cancelled")
+        return None
