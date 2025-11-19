@@ -1,2 +1,2 @@
-from welcome import *
+from welcome.begin import *
 display_welcome_screen()
