@@ -49,6 +49,24 @@ CREATE TABLE IF NOT EXISTS investors (
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
+-- Table: connections (Track connection requests and relationships)
+CREATE TABLE IF NOT EXISTS connections (
+    connection_id INT AUTO_INCREMENT PRIMARY KEY,
+    sender_id INT NOT NULL,
+    receiver_id INT NOT NULL,
+    status ENUM('pending', 'accepted', 'declined') NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    
+    FOREIGN KEY (sender_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    FOREIGN KEY (receiver_id) REFERENCES users(user_id) ON DELETE CASCADE,
+    
+    -- Prevent duplicate connection requests
+    UNIQUE(sender_id, receiver_id),
+    
+    -- Prevent users from connecting with themselves
+    CHECK(sender_id != receiver_id)
+);
+
 -- ============================================
 -- NOTES:
 -- ============================================
