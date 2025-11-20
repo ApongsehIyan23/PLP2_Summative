@@ -1,6 +1,10 @@
 import hashlib
 import getpass
 
+from models.founder import *
+from models.mentor import *
+from models.investor import *
+
 #code to register users
 
 
