@@ -29,3 +29,32 @@ class Investor(User):
         print(f"Investment Range: {self.investment_range}")
         print(f"Investment Record: {self.previous_investments}")
         print("=" * 60)
+    
+
+    def add_investor_to_db(self, connection):
+        """Add a investor to the database: the user and investor tables"""
+        
+        mycursor = connection.cursor()
+        sql_statements = [
+            "INSERT INTO users (username, password, name, role, industry, bio) VALUES (%s, %s, %s, %s, %s, %s)",
+            """INSERT INTO investors (user_id, investment_stage, investment_range, previous_investments)
+             VALUES (%s, %s, %s, %s)"""
+        ]
+        val = (self.username, self.password, self.name, self.role, self.industry, self.bio)
+        try:
+            mycursor.execute(sql_statements[0], val) #executing the first insert statement
+            user_id = mycursor.lastrowid #to get the id that was just inserted
+            
+            #inserting into the investors table
+            mycursor.execute(sql_statements[1], (
+                user_id, self.investment_stage, self.investment_range, self.previous_investments
+            ))
+
+            connection.commit() #always commit the connection before closing the cursor
+            print("\n\n\n")
+            print(f"Investor {self.name} with ID: {user_id} successfully added to the database!")
+            mycursor.close()
+        except Exception as e:
+            print(f"Error {e} encountered, Can't proceed.. Exiting")
+            connection.rollback() #undo the changes incase of an error
+        pass
