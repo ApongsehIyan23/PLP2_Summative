@@ -191,6 +191,57 @@ def register_user(connection):
         session_mentor.add_mentor_to_db(connection)
         pass
     elif decision == 'y' and role == 3: #Investor
+        """Additional Investor Data Collection and Validation"""
+        print("Founder Registration Progress: 50%!")
+        print(f"WARNING!: User {username}, hasn't been INSERTED into the DATABASE. ")
+        print(f"In order to complete the process, please fill the information below! ")
+
+
+        while True:
+            try:
+                inv_stage = int(input(
+                    "Select your startup investment interests:\n"
+                    "1: Idea\n"
+                    "2: Early\n"
+                    "3: Growth\n"
+                    "4: Established\n"
+                    "Enter option (1 - 4): "
+                ))
+                inv_range = int(input(
+                    "Select the range of funding you mostly invest:\n"
+                    "1: 1k-5k\n"
+                    "2: 5k-10k\n"
+                    "3: 10k-15k\n"
+                    "4: 10k+\n"
+                    "Enter option (1 - 4): "
+                ))
+                inv_number = int(input(
+                    "How many investments have you made in the past?:\n"
+                    "1: 0 - 5\n"
+                    "2: 5 - 10\n"
+                    "3: 10 - 20\n"
+                    "4: 20+\n"
+                    "Enter option (1 - 3): "
+                ))
+                if inv_stage not in [1, 2, 3, 4] or inv_range not in [1, 2, 3, 4] or inv_number not in [1, 2, 3, 4]:
+                    print("Error: All Options must be between (1 - 4)")
+                    continue
+                break
+            except ValueError:
+                print("Please Enter a Valid Number ! ")
+        
+        investment_stage_map = {1: "Idea", 2: "Early", 3: "Growth", 4: "Established"}
+        investment_range_map = {1: "1k-5k", 2: "5k-10k", 3: "10k-15k", 4: "10k+"}
+        previous_investments_map = {1: "0-5", 2: "5-10", 3: "10-20", 4: "20+"}
+
+        # Create the Mentor object
+        session_investor = Investor(username, hashlib.sha256(password.encode()).hexdigest(), 
+                          name, 3, industry, bio, investment_stage_map[inv_stage], 
+                          investment_range_map[inv_range], previous_investments_map[inv_number])
+
+        """Display Mentor information and add the mentor to the database"""
+        session_investor.display_investor_info()
+        session_investor.add_investor_to_db(connection)
         pass
     
     else:
