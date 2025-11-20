@@ -18,6 +18,7 @@ DB_NAME = os.getenv("DB_NAME")
 DB_PORT = int(os.getenv("DB_PORT", 3306))  # default port 3306 if not specified
 def initialise_database_connection():
     try:
+        global connection 
         connection = mysql.connector.connect(
             host=DB_HOST,
             user=DB_USER,
