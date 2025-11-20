@@ -7,3 +7,5 @@ founder_menu.txt
 mentor_menu.txt
 investors_menu.txt
 view_dashboard.txt
+__pycache__/
+*.pyc
