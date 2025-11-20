@@ -17,7 +17,7 @@ def display_welcome_screen():
     print("\n")
 
 
-def display_welcome_menu():
+def display_welcome_menu(connection):
     from registration import register_user # Importing register_user function
     print("=========================================")
     print("1. Register User")
@@ -28,7 +28,7 @@ def display_welcome_menu():
         choice = int(input("Enter your choice >>>> "))
 
         if choice == 1:
-            register_user()
+            register_user(connection)
         elif choice == 2:
             print("Login function here")
             #login_user()

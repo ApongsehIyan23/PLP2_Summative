@@ -8,5 +8,5 @@ if __name__ == "__main__":
     db_connection = initialise_database_connection()
     if db_connection:
         display_welcome_screen()
-        display_welcome_menu()
+        display_welcome_menu(db_connection)
         close_database_connection(db_connection)
