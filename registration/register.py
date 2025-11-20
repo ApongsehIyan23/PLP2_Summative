@@ -129,6 +129,66 @@ def register_user(connection):
         session_founder.add_founder_to_db(connection)
 
     elif decision == 'y' and role == 2: #Mentor
+        """Additional Mentor Data Collection and Validation"""
+        print("Mentor Registration Progress: 50%!")
+        print(f"WARNING!: User {username}, hasn't been INSERTED into the DATABASE. ")
+        print(f"In order to complete the process, please fill the information below! ")
+
+        expertise = input("Enter your expertise (skilled domain): >>>>>>> ").strip()
+        if not expertise:
+            print("ERROR: Expertise fiedl is REQUIRED!!")
+            return None
+
+        if not any(c.isalpha() for c in expertise) or len(expertise) < 10:
+            print("ERROR: Experise must be at least 10 characters and contain letters!")
+            return None
+        
+
+        while True:
+            try:
+                yr_experience = int(input(
+                    "Select your years of experience:\n"
+                    "1: 0 - 5 years\n"
+                    "2: 5 - 10 years\n"
+                    "3: 10 - 20 years\n"
+                    "4: 20 years+\n"
+                    "Enter option (1 - 4): "
+                ))
+                availability = int(input(
+                    "Select your availability:\n"
+                    "1: 5 - 10 hours/week\n"
+                    "2: 10 - 20 hours/week\n"
+                    "3: 20+ hours/week\n"
+                    "Enter option (1 - 3): "
+                ))
+                number_mentees = int(input(
+                    "How many people have you mentored:\n"
+                    "1: 0 - 5\n"
+                    "2: 5 - 10\n"
+                    "3: 10 - 20\n"
+                    "4: 20+\n"
+                    "Enter option (1 - 3): "
+                ))
+                if yr_experience not in [1, 2, 3, 4] or availability not in [1, 2, 3] or number_mentees not in [1, 2, 3, 4]:
+                    print("Error: Experience must be between (1 - 4), and Availability must be " \
+                    "between (1 - 3). Number of Mentees must be between (1 - 4)!")
+                    continue
+                break
+            except ValueError:
+                print("Please Enter a Valid Number ! ")
+
+        #creating the mentor object
+        experience = {1: "0-5 years", 2: "5-10 years", 3: "10-20 years", 4: "20+ years"}
+        schedule = {1: "5-10 hours/week", 2: "10-15 hours/week", 3: "15-20 hours/week", 4: "20+ hours/week"}
+        mentees = {1: "0-5", 2: "5-10", 3: "10-20", 4: "20+"}
+
+        # Create the Mentor object
+        session_mentor = Mentor(username, hashlib.sha256(password.encode()).hexdigest(), 
+                          name, 1, industry, bio, expertise, experience[yr_experience], schedule[availability], mentees[number_mentees])
+
+        """Display Mentor information and add the mentor to the database"""
+        session_mentor.display_mentor_info()
+        session_mentor.add_mentor_to_db(connection)
         pass
     elif decision == 'y' and role == 3: #Investor
         pass
