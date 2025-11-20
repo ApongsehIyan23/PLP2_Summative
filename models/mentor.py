@@ -31,3 +31,32 @@ class Mentor(User):
         print(f"Availability: {self.availability}")
         print(f"Previous Mentorships: {self.previous_mentorships}")
         print("=" * 60)
+
+
+    def add_mentor_to_db(self, connection):
+        """Add a mentor to the database: the user and mentor tables"""
+        
+        mycursor = connection.cursor()
+        sql_statements = [
+            "INSERT INTO users (username, password, name, role, industry, bio) VALUES (%s, %s, %s, %s, %s, %s)",
+            """INSERT INTO mentors (user_id, expertise, years_of_experience, availability, previous_mentorships)
+             VALUES (%s, %s, %s, %s, %s)"""
+        ]
+        val = (self.username, self.password, self.name, self.role, self.industry, self.bio)
+        try:
+            mycursor.execute(sql_statements[0], val) #executing the first insert statement
+            user_id = mycursor.lastrowid #to get the id that was just inserted
+            
+            #inserting into the mentors table
+            mycursor.execute(sql_statements[1], (
+                user_id, self.expertise, self.years_of_experience, self.availability, self.previous_mentorships
+            ))
+
+            connection.commit() #always commit the connection before closing the cursor
+            print("\n\n\n")
+            print(f"Mentor {self.username} with ID: {user_id} successfully added to the database!")
+            mycursor.close()
+        except Exception as e:
+            print(f"Error {e} encountered, Can't proceed.. Exiting")
+            connection.rollback() #undo the changes incase of an error
+        pass
