@@ -1,3 +1,5 @@
+from .user import *
+
 class Founder(User):
 
     """Class to represent a founder in the Database"""
@@ -27,3 +29,31 @@ class Founder(User):
         print(f"Years of Operation: {self.years_of_operation}")
         print(f"Stage: {self.stage}")
         print("=" * 60)
+    
+    def add_founder_to_db(self, connection):
+        """Add a founder to the database: the user and founder tables"""
+        
+        mycursor = connection.cursor()
+        sql_statements = [
+            "INSERT INTO users (username, password, name, role, industry, bio) VALUES (%s, %s, %s, %s, %s, %s)",
+            """INSERT INTO founders (user_id, startup_name, startup_description, years_of_operation, stage)
+             VALUES (%s, %s, %s, %s, %s)"""
+        ]
+        val = (self.username, self.password, self.name, self.role, self.industry, self.bio)
+        try:
+            mycursor.execute(sql_statements[0], val) #executing the first insert statement
+            user_id = mycursor.lastrowid #to get the id that was just inserted
+            
+            #inserting into the founders table
+            mycursor.execute(sql_statements[1], (
+                user_id, self.startup_name, self.startup_description, self.years_of_operation, self.stage
+            ))
+
+            connection.commit() #always commit the connection before closing the cursor
+            print("\n\n\n")
+            print(f"Founder {self.username} with ID: {user_id} successfully added to the database!")
+            mycursor.close()
+        except Exception as e:
+            print(f"Error {e} encountered, Can't proceed.. Exiting")
+            connection.rollback() #undo the changes incase of an error
+        pass
