@@ -234,12 +234,12 @@ def register_user(connection):
         investment_range_map = {1: "1k-5k", 2: "5k-10k", 3: "10k-15k", 4: "10k+"}
         previous_investments_map = {1: "0-5", 2: "5-10", 3: "10-20", 4: "20+"}
 
-        # Create the Mentor object
+        # Create the Investor object
         session_investor = Investor(username, hashlib.sha256(password.encode()).hexdigest(), 
                           name, 3, industry, bio, investment_stage_map[inv_stage], 
                           investment_range_map[inv_range], previous_investments_map[inv_number])
 
-        """Display Mentor information and add the mentor to the database"""
+        """Display Investor information and add the investor to the database"""
         session_investor.display_investor_info()
         session_investor.add_investor_to_db(connection)
         pass
