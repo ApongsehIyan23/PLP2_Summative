@@ -70,6 +70,7 @@ def register_user(connection):
     
     
     if decision == 'y' and role == 1: #The User is a Founder
+        """Additional Founder Data Collection and Validation"""
         print("Founder Registration Progress: 50%!")
         print(f"WARNING!: User {username}, hasn't been INSERTED into the DATABASE. ")
         print(f"In order to complete the process, please fill the information below! ")
@@ -115,17 +116,18 @@ def register_user(connection):
             except ValueError:
                 print("Please Enter a Valid Number ! ")
 
-        #creating the founder class
+        #creating the founder object
         STAGES = {1: "Idea", 2: "Early", 3: "Growth", 4: "Established"}
         YEARS = {1: "Less than 1 year", 2: "1-2 years", 3: "3-5 years", 4: "5+ years"}
         
         # Create the Founder object
-        founder = Founder(username, hashlib.sha256(password.encode()).hexdigest(), name, 1, industry, bio, venture_name, description,
-            YEARS[yr_operation],
-            STAGES[stage]
-        )
+        session_founder = Founder(username, hashlib.sha256(password.encode()).hexdigest(), 
+                          name, 1, industry, bio, venture_name, description,YEARS[yr_operation], STAGES[stage])
 
-        founder.display_founder_info()
+        """Display Founder information and add the founder to the database"""
+        session_founder.display_founder_info()
+        session_founder.add_founder_to_db(connection)
+
     elif decision == 'y' and role == 2: #Mentor
         pass
     elif decision == 'y' and role == 3: #Investor
