@@ -4,6 +4,7 @@ import getpass
 from models.founder import *
 from models.mentor import *
 from models.investor import *
+from db_connection import create_all_tables
 
 #code to register users
 
@@ -24,6 +25,7 @@ def display_details(username, name, role, industry, bio):
 
 
 def register_user(connection):       #function to enter new user credentials
+    create_all_tables() #to create all tables
     """Function to register a new user"""
 
     print("=== User Registration ===")

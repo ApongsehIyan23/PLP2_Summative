@@ -17,6 +17,14 @@ def display_welcome_screen():
     print("\n")
 
 
+def check_if_tables_exists(connection):
+    cursor = connection.cursor()
+    cursor.execute("SHOW TABLES;")
+    tables = cursor.fetchall()
+    cursor.close()
+
+    return len(tables) > 0
+
 def display_welcome_menu(connection):
     from registration import register_user # Importing register_user function
     from login import login_user # importing the login user function
@@ -34,7 +42,10 @@ def display_welcome_menu(connection):
         elif choice == 2:
             print("\n\n\n")
             print("=================== LOGIN SECTION =====================")
-
+            status = check_if_tables_exists(connection)
+            if status == 0:
+                print("CAN'T LOGIN BECAUSE THE DATABASE IS EMPTY!!!")
+                exit()
             import getpass
             session_username = input("Enter your Username: ")
             session_password = getpass.getpass("Enter your Password: ")
