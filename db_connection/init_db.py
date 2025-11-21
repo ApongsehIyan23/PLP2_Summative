@@ -41,7 +41,7 @@ def close_database_connection(connection):  # Function for closing the database 
         print("Connection was already closed or not established.")
 
 
-def create_all_tables():
+def create_all_tables():  # Function to create investors mentors founders tables
         if connection is None: return
         cursor = connection.cursor()
         tables = {
