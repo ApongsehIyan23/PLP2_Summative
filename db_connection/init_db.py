@@ -33,7 +33,7 @@ def initialise_database_connection():
         print(f"Error: {err}")
         return None
 
-def close_database_connection(connection):
+def close_database_connection(connection):  # Function for closing the database connection
     if connection.is_connected():
         connection.close()
         print("Database connection closed.")
