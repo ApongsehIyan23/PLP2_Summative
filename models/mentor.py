@@ -60,3 +60,35 @@ class Mentor(User):
             print(f"Error {e} encountered, Can't proceed.. Exiting")
             connection.rollback() #undo the changes incase of an error
         pass
+
+    
+    @classmethod
+    def get_from_db(cls, user_id, connection):
+        """Get a mentor from database by user_id"""
+
+
+        cursor = connection.cursor(dictionary=True)
+        
+        # Get user data
+        cursor.execute('SELECT * FROM users WHERE user_id = %s', (user_id,))
+        user_data = cursor.fetchone()
+        
+        # Get founder-specific data
+        cursor.execute('SELECT * FROM mentors WHERE user_id = %s', (user_id,))
+        founder_data = cursor.fetchone()
+        
+        cursor.close()
+        connection.close()
+        
+        return cls(
+            username=user_data['username'],
+            password=user_data['password'],
+            name=user_data['name'],
+            role=user_data['role'],
+            industry=user_data['industry'],
+            bio=user_data['bio'],
+            expertise=user_data['expertise'],
+            years_of_experience=user_data['years_of_experience'],
+            availability=user_data['availability'],
+            previous_mentorships=user_data['previous_mentorships']
+        )

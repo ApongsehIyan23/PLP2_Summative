@@ -58,3 +58,33 @@ class Investor(User):
             print(f"Error {e} encountered, Can't proceed.. Exiting")
             connection.rollback() #undo the changes incase of an error
         pass
+
+    @classmethod
+    def get_from_db(cls, user_id, connection):
+        """Get an investor from database by user_id"""
+
+
+        cursor = connection.cursor(dictionary=True)
+        
+        # Get user data
+        cursor.execute('SELECT * FROM users WHERE user_id = %s', (user_id,))
+        user_data = cursor.fetchone()
+        
+        # Get founder-specific data
+        cursor.execute('SELECT * FROM investors WHERE user_id = %s', (user_id,))
+        founder_data = cursor.fetchone()
+        
+        cursor.close()
+        connection.close()
+        
+        return cls(
+            username=user_data['username'],
+            password=user_data['password'],
+            name=user_data['name'],
+            role=user_data['role'],
+            industry=user_data['industry'],
+            bio=user_data['bio'],
+            investment_stage=user_data['investment_stage'],
+            investment_range=user_data['investment_range'],
+            previous_investment=user_data['previous_investment']
+        )
