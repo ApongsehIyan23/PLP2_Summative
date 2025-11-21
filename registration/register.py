@@ -23,7 +23,7 @@ def display_details(username, name, role, industry, bio):
     print(f"Bio: {bio}\n")
 
 
-def register_user(connection):
+def register_user(connection):       #function to enter new user credentials
     """Function to register a new user"""
 
     print("=== User Registration ===")
