@@ -19,6 +19,8 @@ def display_welcome_screen():
 
 def display_welcome_menu(connection):
     from registration import register_user # Importing register_user function
+    from login import login_user # importing the login user function
+
     print("=========================================")
     print("1. Register User")
     print("2. Login")
@@ -30,8 +32,28 @@ def display_welcome_menu(connection):
         if choice == 1:
             register_user(connection)
         elif choice == 2:
-            print("Login function here")
-            #login_user()
+            print("\n\n\n")
+            print("=================== LOGIN SECTION =====================")
+
+            import getpass
+            session_username = input("Enter your Username: ")
+            session_password = getpass.getpass("Enter your Password: ")
+
+            while not all([session_username, session_password]):
+                print("ERROR: All fields are required!")
+
+                session_username = input("Enter your Username: ")
+                session_password = getpass.getpass("Enter your Password: ")
+            
+            new_user = login_user(session_username, session_password, connection) #try to login with the credentials
+
+            if new_user: #if a User was found
+                print(f"Welcome Back Dear {new_user.name}! ")
+                print(f"Nice to have you back on our Startup Connect!")
+            
+            else: #if no user was found
+                print(f"Invalid Credentials, couldn't retrieve UserName {session_username} from the Database!")
+
         elif choice == 3:
             print("Goodbye!")
             exit()
