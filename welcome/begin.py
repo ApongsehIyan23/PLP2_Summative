@@ -61,6 +61,8 @@ def display_welcome_menu(connection):
             if new_user: #if a User was found
                 print(f"Welcome Back Dear {new_user.name}! ")
                 print(f"Nice to have you back on our Startup Connect!")
+
+                
             
             else: #if no user was found
                 print(f"Invalid Credentials, couldn't retrieve UserName {session_username} from the Database!")
