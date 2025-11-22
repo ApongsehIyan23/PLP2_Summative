@@ -32,15 +32,12 @@ def login_user(username, user_password, connection):
     user_id = user_data['user_id']
         
     if role == 'Founder':
-        from models.founder import Founder
         return Founder.get_from_db(user_id, connection)
     
     elif role == 'Mentor':
-        from models.mentor import Mentor
         return Mentor.get_from_db(user_id, connection)
     
     elif role == 'Investor':
-        from models.investor import Investor
         return Investor.get_from_db(user_id, connection)
     
     connection.close()   
