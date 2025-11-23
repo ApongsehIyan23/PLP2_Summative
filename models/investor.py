@@ -75,7 +75,6 @@ class Investor(User):
         investor_data = cursor.fetchone()
         
         cursor.close()
-        connection.close()
         
         return cls(
             username=user_data['username'],

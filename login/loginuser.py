@@ -40,7 +40,6 @@ def login_user(username, user_password, connection):
     elif role == 'Investor':
         return Investor.get_from_db(user_id, connection)
     
-    connection.close()   
     return None
 
 

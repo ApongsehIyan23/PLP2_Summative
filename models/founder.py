@@ -74,7 +74,6 @@ class Founder(User):
         founder_data = cursor.fetchone()
         
         cursor.close()
-        connection.close()
         
         return cls(
             username=user_data['username'],

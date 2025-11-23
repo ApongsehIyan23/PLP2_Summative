@@ -1,7 +1,7 @@
 """Package to contain the Menu functions for the logged-in user"""
 
 def start_main_menu(connection, user):
-
+    from welcome import clear_screen
     """Funtion to display the menu and options for the logged in user"""
 
     #selection based menu
@@ -14,11 +14,12 @@ def start_main_menu(connection, user):
         print("5. Logout!")
         try:
             choice = int(input("Enter your Choice ....... >>>>>>>>>> "))
-
+            clear_screen()
             if choice not in range(1,6):
                 print("Invalid Choice! Must be between (1 - 5)")
             
             elif choice == 1:
+                
                 print("viewdashboard_function goes here")
 
             elif choice == 2:
