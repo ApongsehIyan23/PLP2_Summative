@@ -85,5 +85,5 @@ class Investor(User):
             bio=user_data['bio'],
             investment_stage=investor_data['investment_stage'],
             investment_range=investor_data['investment_range'],
-            previous_investment=investor_data['previous_investment']
+            previous_investments=investor_data['previous_investments']
         )
