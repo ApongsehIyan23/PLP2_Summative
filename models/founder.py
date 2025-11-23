@@ -14,7 +14,7 @@ class Founder(User):
     def display_founder_info(self):
         """Display all founder information"""
         print("=" * 60)
-        print("FOUNDER PROFILE")
+        print("Profile Information")
         print("=" * 60)
         print(f"Username: {self.username}")
         print(f"Full Name: {self.name}")

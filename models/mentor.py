@@ -13,7 +13,7 @@ class Mentor(User):
     
     def display_mentor_info(self):
         """Display all Mentor information"""
-        print("\n\n\n")
+        print("\n")
         print("=" * 60)
         print("Profile Information")
         print("=" * 60)
@@ -22,7 +22,7 @@ class Mentor(User):
         print(f"Role: {self.role}")
         print(f"Industry: {self.industry}")
         print(f"Bio: {self.bio}")
-        print("\n\n\n")
+        print("\n")
         print("-" * 60)
         print("Mentor Details ")
         print("-" * 60)

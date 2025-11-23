@@ -76,7 +76,7 @@ def display_welcome_menu(connection):
                 print(f"=== USERID = {new_user.get_userID(connection)}")
                 print(f"Welcome Back {new_user.role} {new_user.name}! ")
                 print(f"Nice to have you back on Startup Connect!")
-                start_main_menu(connection, new_user) #display the logged-in user menu
+                start_main_menu(connection, new_user, new_user.get_userID(connection)) #display the logged-in user menu
 
                 
             else: #if no user was found

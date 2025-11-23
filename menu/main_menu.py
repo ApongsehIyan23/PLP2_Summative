@@ -1,6 +1,6 @@
 """Package to contain the Menu functions for the logged-in user"""
 
-def start_main_menu(connection, user):
+def start_main_menu(connection, user, userid):
     from welcome import clear_screen
     """Funtion to display the menu and options for the logged in user"""
 
@@ -19,9 +19,21 @@ def start_main_menu(connection, user):
                 print("Invalid Choice! Must be between (1 - 5)")
             
             elif choice == 1:
+                if user.role == "Founder":
+                    user.display_founder_info()
+                elif user.role == "Mentor":
+                    user.display_mentor_info()
+                else:
+                    user.display_investor_info()
                 
-                print("viewdashboard_function goes here")
-
+                stats = user.get_stats(userid, connection) #to get the user's statistics
+    
+                print(f"\nStatistics:")
+                print(f"----------")
+                print(f"Total Connections: {stats['connections']}")
+                print(f"Pending Requests (Received): {stats['pending_received']}")
+                print(f"Pending Requests (Sent): {stats['pending_sent']}")
+                print("="*50)
             elif choice == 2:
                 print("find&connect function goes here")
                 pass

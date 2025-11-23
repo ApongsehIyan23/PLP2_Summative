@@ -12,7 +12,7 @@ class Investor(User):
 
     def display_investor_info(self):
         """Display all Investor information"""
-        print("\n\n\n")
+        print("\n")
         print("=" * 60)
         print("Profile Information")
         print("=" * 60)
@@ -21,7 +21,7 @@ class Investor(User):
         print(f"Role: {self.role}")
         print(f"Industry: {self.industry}")
         print(f"Bio: {self.bio}")
-        print("\n\n\n")
+        print("\n")
         print("-" * 60)
         print("Investor Details ")
         print("-" * 60)
