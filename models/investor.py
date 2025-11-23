@@ -70,9 +70,9 @@ class Investor(User):
         cursor.execute('SELECT * FROM users WHERE user_id = %s', (user_id,))
         user_data = cursor.fetchone()
         
-        # Get founder-specific data
+        # Get Investor-specific data
         cursor.execute('SELECT * FROM investors WHERE user_id = %s', (user_id,))
-        founder_data = cursor.fetchone()
+        investor_data = cursor.fetchone()
         
         cursor.close()
         connection.close()
@@ -84,7 +84,7 @@ class Investor(User):
             role=user_data['role'],
             industry=user_data['industry'],
             bio=user_data['bio'],
-            investment_stage=user_data['investment_stage'],
-            investment_range=user_data['investment_range'],
-            previous_investment=user_data['previous_investment']
+            investment_stage=investor_data['investment_stage'],
+            investment_range=investor_data['investment_range'],
+            previous_investment=investor_data['previous_investment']
         )

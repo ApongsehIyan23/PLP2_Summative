@@ -29,6 +29,8 @@ def display_welcome_menu(connection):
     from registration import register_user # Importing register_user function
     from login import login_user # importing the login user function
 
+    print("\n" + "=" * 30 + " WELCOME MENU " + "=" * 30)
+    print("\n")
     print("=========================================")
     print("1. Register User")
     print("2. Login")
@@ -64,7 +66,7 @@ def display_welcome_menu(connection):
                 print(f"Welcome Back Dear {new_user.name}! ")
                 print(f"Nice to have you back on our Startup Connect!")
                 start_main_menu(connection, new_user)
-                
+
                 
             else: #if no user was found
                 print(f"Invalid Credentials, couldn't retrieve UserName {session_username} from the Database!")

@@ -3,15 +3,15 @@
 def start_main_menu(connection, user):
 
     """Funtion to display the menu and options for the logged in user"""
-    print("\n" + "=" * 30 + " MAIN MENU " + "=" * 30)
-    print("1. View Dashboard ")
-    print("2. Find & Connect ")
-    print("3. Manage Connections ")
-    print("4. View Connections ")
-    print("5. Logout!")
 
     #selection based menu
     while True:
+        print("\n" + "=" * 30 + " MAIN MENU " + "=" * 30)
+        print("1. View Dashboard ")
+        print("2. Find & Connect ")
+        print("3. Manage Connections ")
+        print("4. View Connections ")
+        print("5. Logout!")
         try:
             choice = int(input("Enter your Choice ....... >>>>>>>>>> "))
 

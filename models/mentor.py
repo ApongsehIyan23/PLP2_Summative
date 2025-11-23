@@ -75,7 +75,7 @@ class Mentor(User):
         
         # Get founder-specific data
         cursor.execute('SELECT * FROM mentors WHERE user_id = %s', (user_id,))
-        founder_data = cursor.fetchone()
+        mentor_data = cursor.fetchone()
         
         cursor.close()
         connection.close()
@@ -87,8 +87,8 @@ class Mentor(User):
             role=user_data['role'],
             industry=user_data['industry'],
             bio=user_data['bio'],
-            expertise=user_data['expertise'],
-            years_of_experience=user_data['years_of_experience'],
-            availability=user_data['availability'],
-            previous_mentorships=user_data['previous_mentorships']
+            expertise=mentor_data['expertise'],
+            years_of_experience=mentor_data['years_of_experience'],
+            availability=mentor_data['availability'],
+            previous_mentorships=mentor_data['previous_mentorships']
         )
