@@ -63,8 +63,9 @@ def display_welcome_menu(connection):
             if new_user: #if a User was found
                 from menu import start_main_menu
 
-                print(f"Welcome Back Dear {new_user.name}! ")
-                print(f"Nice to have you back on our Startup Connect!")
+                print("\n\n")
+                print(f"Welcome Back {new_user.role} {new_user.name}! ")
+                print(f"Nice to have you back on Startup Connect!")
                 start_main_menu(connection, new_user)
 
                 
