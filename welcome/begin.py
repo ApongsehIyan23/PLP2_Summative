@@ -25,10 +25,16 @@ def check_if_tables_exists(connection):
 
     return len(tables) > 0
 
+def clear_screen():
+    #function to clear the screen
+
+    import os
+    os.system("cls" if os.name == "nt" else "clear")
+
+
 def display_welcome_menu(connection):
     from registration import register_user # Importing register_user function
     from login import login_user # importing the login user function
-
     print("\n" + "=" * 30 + " WELCOME MENU " + "=" * 30)
     print("\n")
     print("=========================================")
@@ -40,9 +46,11 @@ def display_welcome_menu(connection):
         choice = int(input("Enter your choice >>>> "))
 
         if choice == 1:
+            clear_screen()
             register_user(connection)
         elif choice == 2:
             print("\n\n\n")
+            clear_screen()
             print("=================== LOGIN SECTION =====================")
             status = check_if_tables_exists(connection)
             if status == 0:
@@ -62,7 +70,8 @@ def display_welcome_menu(connection):
 
             if new_user: #if a User was found
                 from menu import start_main_menu
-
+                clear_screen()
+                
                 print("\n\n")
                 print(f"Welcome Back {new_user.role} {new_user.name}! ")
                 print(f"Nice to have you back on Startup Connect!")
