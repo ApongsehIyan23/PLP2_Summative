@@ -66,14 +66,14 @@ def display_welcome_menu(connection):
                 print("\n\n")
                 print(f"Welcome Back {new_user.role} {new_user.name}! ")
                 print(f"Nice to have you back on Startup Connect!")
-                start_main_menu(connection, new_user)
+                start_main_menu(connection, new_user) #display the logged-in user menu
 
                 
             else: #if no user was found
                 print(f"Invalid Credentials, couldn't retrieve UserName {session_username} from the Database!")
 
         elif choice == 3:
-            print("Goodbye!")
+            print("Goodbye!. Exiting the Program. Thanks for using our Platform!")
             exit()
         else:
             print("Invalid choice! Please select 1, 2, or 3.")
