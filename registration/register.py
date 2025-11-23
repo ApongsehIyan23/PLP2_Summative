@@ -25,6 +25,7 @@ def display_details(username, name, role, industry, bio):
 
 
 def register_user(connection):       #function to enter new user credentials
+    from welcome import clear_screen
     create_all_tables() #to create all tables
     """Function to register a new user"""
 
@@ -67,11 +68,13 @@ def register_user(connection):       #function to enter new user credentials
             break
         print("Passwords do not match! Try again")
     
+    clear_screen()
     display_details(username, name, role, industry, bio)
     decision = input("Do you want to confirm this data [y/n]: ").strip().lower()
     
     
     if decision == 'y' and role == 1: #The User is a Founder
+        clear_screen()
         """Additional Founder Data Collection and Validation"""
         print("Founder Registration Progress: 50%!")
         print(f"WARNING!: User {username}, hasn't been INSERTED into the DATABASE. ")
@@ -131,6 +134,7 @@ def register_user(connection):       #function to enter new user credentials
         session_founder.add_founder_to_db(connection)
 
     elif decision == 'y' and role == 2: #Mentor
+        clear_screen()
         """Additional Mentor Data Collection and Validation"""
         print("Mentor Registration Progress: 50%!")
         print(f"WARNING!: User {username}, hasn't been INSERTED into the DATABASE. ")
@@ -193,8 +197,9 @@ def register_user(connection):       #function to enter new user credentials
         session_mentor.add_mentor_to_db(connection)
         pass
     elif decision == 'y' and role == 3: #Investor
+        clear_screen()
         """Additional Investor Data Collection and Validation"""
-        print("Founder Registration Progress: 50%!")
+        print("Investor Registration Progress: 50%!")
         print(f"WARNING!: User {username}, hasn't been INSERTED into the DATABASE. ")
         print(f"In order to complete the process, please fill the information below! ")
 
