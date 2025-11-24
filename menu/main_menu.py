@@ -34,10 +34,40 @@ def start_main_menu(connection, user, userid):
                 print(f"Pending Requests (Received): {stats['pending_received']}")
                 print(f"Pending Requests (Sent): {stats['pending_sent']}")
                 print("="*50)
-            elif choice == 2:
-                print("find&connect function goes here")
-                pass
             
+            
+            elif choice == 2:
+                
+                while True:    # ← submenu loop
+                    print("find&connect function goes here")
+                    print(f"1. Browse All Users in {user.industry}")
+                    print("2. Browse User By Name ")
+                    print("3. Return to Main Menu ")
+
+                    try:
+                        submenu_choice = int(input("Enter your Choice .......... >>>>>>>>>> "))
+
+                        if submenu_choice not in range(1,4):
+                            print("Invalid Choice... Try again!")
+
+                        elif submenu_choice == 1:
+                            print(f"Displaying All Profiles in the {user.industry}")
+                            # run function here
+                            input("\nPress ENTER to return to the Main Menu...")
+                            break   # ← returns to MAIN MENU
+                
+                        elif submenu_choice == 2:
+                            print("Enter a name to search for")
+                            # run function here
+                            input("\nPress ENTER to return to the Main Menu...")
+                            break   # ← returns to MAIN MENU
+
+                        elif submenu_choice == 3:
+                            break  # ← returns to MAIN MENU
+
+                    except ValueError as e:
+                        print(f"Error: {e}")
+                
             elif choice == 3:
                 print("manageconnections function goes here")
 
