@@ -35,7 +35,7 @@ def start_main_menu(connection, user, userid):
                 print(f"Pending Requests (Sent): {stats['pending_sent']}")
                 print("="*50)
             
-            
+
             elif choice == 2:
                 
                 while True:    # ← submenu loop
@@ -53,6 +53,7 @@ def start_main_menu(connection, user, userid):
                         elif submenu_choice == 1:
                             print(f"Displaying All Profiles in the {user.industry}")
                             # run function here
+                            user.find_matching_profiles(userid, connection)
                             input("\nPress ENTER to return to the Main Menu...")
                             break   # ← returns to MAIN MENU
                 

@@ -54,3 +54,26 @@ class User:
             'pending_received': pending_received,
             'pending_sent': pending_sent
         }
+    
+    def find_matching_profiles(self, ID, connection):
+        """Method to find the matching Profiles based on the Industry for any User Object"""
+        from tabulate import tabulate #import tabulate to display results in tabular format
+        mycursor = connection.cursor(dictionary=True)
+
+        mycursor.execute(
+            "SELECT name, role, bio FROM users WHERE (user_id != %s AND industry = %s)"
+            ,(ID, self.industry)
+        )
+
+        profile_matches = mycursor.fetchall()
+        mycursor.close()
+
+        if not profile_matches:
+            print(f"No profiles found in the {self.industry} industry.")
+        else:
+            # Prepare data for tabulate
+            table_data = []
+            for profile in profile_matches:
+                table_data.append([profile['name'], profile['role'], profile['bio']])
+        
+            print(tabulate(table_data, headers=["Name", "Role", "Bio"], tablefmt="fancy_grid"))
